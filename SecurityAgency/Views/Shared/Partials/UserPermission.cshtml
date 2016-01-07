@@ -1,0 +1,45 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model IEnumerable<SecurityAgency.Common.ViewModels.PermissionViewModel> 
+
+<script src="~/Scripts/AppJs/UserValidation.js"></script>
+<div class="widget-body">
+    @*<form id="User-form" class="form-horizontal form-label-left ">*@
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="UserId" id="userId" />
+    @foreach (var item in Model)
+    {
+        //if (item.ModuleId == )
+        {
+            <input type="checkbox" value="@item.Name" class="all" />@item.Name<br />
+            foreach (var m in Model)
+            {
+                if (m.PermissionId == 1)
+                {
+
+                    <input type="checkbox" value="@m.Name" class="head @m.Name" style="margin-left:20px" />@m.Name<br />
+
+                    foreach (var i in Model)
+                    {
+                        if (i.PermissionId == m.ModuleId)
+                        {
+
+
+                            <input type="checkbox" value="@i.Name" name="check" style="margin-left:40px" class="subhead @m.Name" />@i.Name<br />
+
+                        }
+                    }
+
+
+                }
+            }
+
+
+        }
+
+    }
+
+    <div>
+        <button onclick="CreateUpdateUser(@Model.UserId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>

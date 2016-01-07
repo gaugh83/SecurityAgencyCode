@@ -1,0 +1,70 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model DailyLogViewModel
+<script src="~/Scripts/AppJs/DailyLogValidation.js"></script>
+<style type="text/css">
+    #Dated {
+        width: 100%;
+    }
+</style>
+<div class="widget-body">
+    <form id="DailyLog-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="DailyLogId" id="DailyLogId" />
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Customer
+                </div>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(d => d.CustomerId, new SelectList(Model.CustomerList, "value", "text"), "Select Customer", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Guard
+                </div>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(d => d.GuardId, new SelectList(Model.GuardList, "value", "text"), "Select Guard", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Hours
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Hours, new { @class = "form-control", @placeholder = "Hours" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Date
+                </div>
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.Dated, new { @class = "form-control", @placeholder = "Date", type = "date" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Comments
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", @placeholder = "Comments" })
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <button id="buttonSave" onclick="return CreateUpdateDailyLog(@Model.DailyLogId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        if(@Model.DailyLogId==0)
+        {
+            $('#Hours').val('');
+        }
+    });
+</script>

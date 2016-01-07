@@ -1,0 +1,153 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model CustomerInvoiceViewModel
+
+<script src="~/Scripts/AppJs/CustomerInvoiceValidation.js"></script>
+<style type="text/css">
+    #BeginDate {
+        width: 100%;
+    }    
+    #EndDate {
+        width: 140px;
+    }
+    #InvoiceDate {
+        width: 140px;
+    }
+    #HourlyRate {
+        width: 140px;
+    }
+    #EndDate {
+        width: 140px;
+    }
+    #Amount {
+        width: 140px;
+    }
+</style>
+<div class="widget-body">
+    <form id="Customer-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(i=>i.InvoiceId)
+        <fieldset>
+            @Html.ValidationSummary()
+
+            <div class="row" style="padding-top:20px">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(model => model.InvoiceNo, new { @class = "control-label InvoiceNo" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @readonly="readonly" })
+                            @Html.ValidationMessageFor(model => model.InvoiceNo)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.Label("Customer", new { @class = "control-label", @required = "required" })
+
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(d => d.CustomerId, new SelectList(Model.CustomerList, "value", "text"), "Select Customer", new { @class = "form-control", onchange = "ResetHoursandAmount('');" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(model => model.BeginDate, new { @class = "control-label", @required = "required" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.BeginDate, new { @class = "datepickercls", @placeholder = "Invoice Start Date"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(model => model.TotalHours, new { @class = "control-label Password ConfirmPassword", @required = "required" })
+
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.TotalHours, new { @class = "form-control", @placeholder = "Total Hours", onchange = "CalculateAmount();" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(model => model.InvoiceDate, new { @class = "control-label", @required = "required" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.InvoiceDate, new { @class = "datepickercls", @placeholder = "Invoice Date", @style="width:90%" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(m => m.HourlyRate, new { @class = "control-label Email", @required = "required" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control", @placeholder = "Hourly Rate", onchange = "CalculateAmount();" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">                            
+                            @Html.LabelFor(model => model.EndDate, new { @class = "control-label", @required = "required" })
+                        </div>
+                        <div class="col-md-6">
+                            @*@Html.TextBoxFor(m => m.PaymentType, new { @class = "datepicker form-control" })*@                            
+                            @Html.EditorFor(model => model.EndDate, new { @class = "datepickercls", @placeholder = "End Date" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-4">
+                            @Html.LabelFor(model => model.Amount, new { @class = "control-label Email", @required = "required" })
+                        </div>
+                        <div class="col-md-6">                            
+                            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", @placeholder = "Amount", @readonly = "readonly"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label Email", @required = "required" })
+                        @Html.TextAreaFor(m => m.Description, new { @style = "margin-left:6%;width:72%" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.InternalComments, new { @class = "col-md-2 control-label Password ConfirmPassword", @required = "required" })
+                        @Html.TextAreaFor(m => m.InternalComments, new { @style = "margin-left:6%;width:72%" })
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <button id="buttonSave" onclick="return CreateCustomerInvoice(@Model.InvoiceId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+       if(@Model.InvoiceId==0)
+        {
+            $.ajax({
+                url: "/CustomerInvoice/GetNewInvoiceNumber",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#InvoiceNo').val(data);
+                },
+                error: function (statusText) {
+                    var error = JSON.parse(statusText.responseText)
+                    console.log(error.exceptionMessage);
+                }
+            });
+
+            $('#Amount').val('');
+            $('#TotalHours').val('');
+            varEndDate = document.querySelector('#EndDate').value = new Date().toISOString().substring(0, 10);
+            varBeginDate = document.querySelector('#BeginDate').value = new Date(new Date().setDate(new Date().getDate() - 14)).toISOString().substring(0, 10);
+        
+        }
+    });
+</script>

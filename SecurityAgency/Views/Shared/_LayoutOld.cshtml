@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-override.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery-ui-1.10.3.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/animate.delay.css" rel="stylesheet" />
+    <link href="~/Content/css/style.default.css" rel="stylesheet" />
+    <link href="~/Content/Custome.css" rel="stylesheet" />
+
+    <link href="~/Content/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/alertify.default.css" rel="stylesheet" />
+
+    <script src="~/Scripts/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Scripts/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/js/jquery-ui-1.10.3.min.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/modernizr.min.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
+    <!---Common-->
+    <script src="~/Scripts/AppJs/Common.js"></script>
+    <script src="~/Scripts/js/custom.js"></script>
+
+    @*@System.Web.Optimization.Styles.Render("~/Content/SecurityCss")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/js/CommonJS")*@
+</head>
+<body>
+    <header>
+        <div class="headerwrapper">
+            <div class="header-left">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+
+                            <a href="javascript:void(0);" class="logo">
+                                <img src="~/images/logo.png" alt="" height="28" />
+                            </a>
+
+
+                        </div>
+                        <div class="collapse navbar-collapse  pull-right" id="myNavbar">
+                            <ul class="nav navbar-nav pull-right">
+                                @*<li><a href="@Url.Action("Index", "Admin")">Admin</a></li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!-- header-left -->
+
+            <div class="header-right">
+
+                <div class="pull-right">
+
+                    <div class="btn-group btn-group-option accounticon">
+                        @*<span class="userheader">Welcome @activeUser.UserName!</span>*@
+                    </div>
+                    <div class="btn-group btn-group-option">
+                        <button type="button" class="btn btn-default dropdown-toggle" id="dropdown">
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="@Url.Action("Logout", "Account")"><i class="glyphicon glyphicon-user"></i>LogOut</a></li>
+                        </ul>
+                    </div><!-- btn-group -->
+
+                </div><!-- pull-right -->
+
+            </div><!-- header-right -->
+
+        </div><!-- headerwrapper -->
+    </header>
+
+    <section>
+        <div class="mainwrapper container-fluid">
+            <div class="row">
+                <div class="col-md-2 adminheadmt">
+                    <h4 class="adminhead" style="font-family:SEGOEUIL">ADMIN PANEL</h4>
+                    <ul class="nav nav-pills nav-stacked" id="adminleft">
+                        <li><a href="@Url.Action("DailyLog", "DailyLog")"><span>Daily Log Details</span></a></li> 
+                        <li><a href="#" onclick="ShowHideMenu('CustomerMenus')"><span>Customer</span></a></li>
+                        <li class="CustomerMenus" style="display:none"><a href="@Url.Action("Customer", "Customer")"><span>&nbsp;&nbsp;&nbsp;Customer Details</span></a></li>
+                        <li class="CustomerMenus" style="display:none"><a href="@Url.Action("CustomerInvoice", "CustomerInvoice")"><span>&nbsp;&nbsp;&nbsp;Customer Invoice</span></a></li>
+                        <li class="CustomerMenus" style="display:none"><a href="@Url.Action("CustomerPayment", "CustomerPayment")"><span>&nbsp;&nbsp;&nbsp;Customer Payments</span></a></li>
+                        <li><a href="#" onclick="ShowHideMenu('GuardMenus')"><span>Gaurd</span></a></li>
+                        <li class="GuardMenus" style="display:none"><a href="@Url.Action("Guard", "Guard")"><span>&nbsp;&nbsp;&nbsp;Gaurd Details</span></a></li>
+                        <li class="GuardMenus" style="display:none"><a href="@Url.Action("GuardPayment", "GuardPayment")"><span>&nbsp;&nbsp;&nbsp;Guard Payments</span></a></li>   
+                        <li><a href="#" onclick="ShowHideMenu('ReportMenus')"><span>Reports</span></a></li>
+                        <li class="ReportMenus" style="display:none"><a href="@Url.Action("CustomerReport", "Reports")"><span>&nbsp;&nbsp;&nbsp;Customer Reports</span></a></li>
+                        <li class="ReportMenus" style="display:none"><a href="@Url.Action("GuardReport", "Reports")"><span>&nbsp;&nbsp;&nbsp;Guard Reports</span></a></li>
+                        <li class="ReportMenus" style="display:none"><a href="@Url.Action("CustomerInvoiceReport", "Reports")"><span>&nbsp;&nbsp;&nbsp;Customer Invoice Reports</span></a></li>
+                        <li><a href="@Url.Action("User", "Admin")"><span>User Details</span></a></li>
+                    </ul>
+
+                </div><!-- leftpanel -->
+
+                <div class="col-md-10">
+                    @RenderBody()
+                </div><!-- mainpanel -->
+            </div>
+        </div><!-- mainwrapper -->
+    </section>
+    <script type="text/javascript">
+        $('#dropdown').click(function (e) {
+            $('.dropdown-menu').slideToggle();
+        });
+        var menuTohide;
+        function ShowHideMenu(menuItem) {
+            $("." + menuItem).toggle("slow");
+            $("." + menuTohide).toggle("slow");
+            menuTohide = menuItem;
+        }
+        if(window.location.href.toLowerCase().search('report')>0) {
+            ShowHideMenu('ReportMenus');
+        }
+        else if (window.location.href.toLowerCase().search('customer') > 0) {
+            ShowHideMenu('CustomerMenus');
+        }
+        else if (window.location.href.toLowerCase().search('guard') > 0) {
+            ShowHideMenu('GuardMenus');
+        }
+    </script>
+
+@{ Html.RenderPartial("~/Views/Shared/Partials/_GenericModal.cshtml"); }
+</body>
+</html>

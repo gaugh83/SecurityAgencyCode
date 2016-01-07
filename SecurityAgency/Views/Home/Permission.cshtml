@@ -1,0 +1,101 @@
+﻿@model IEnumerable<SecurityAgency.Models.Permission>
+<html>
+<head>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".all").change(function () {
+                debugger;
+                //$('.' + $(this).attr('class').split(' ')[1]).prop('checked', this.checked);
+                $('input:checkbox').prop('checked', this.checked);
+                //if ($('.head').prop('checked'))
+                //{
+                //    //$('.' + $(".head").attr('class').split(' ')[1]).prop('checked', this.checked);
+                //    $(".head, .subhead").prop('checked', this.checked);
+                //}
+            });
+                $(".head").change(function () {
+                    debugger;
+                    $('.' + $(this).attr('class').split(' ')[1]).prop('checked', this.checked);
+                    //$(this).children().prop('checked',$(this).children().prop("checked",true))
+                });
+            //});
+            $('.subhead').on('click', function () {
+                debugger;
+                var subheadCheck = $(this).attr('class').split(' ')[1]
+                //var headCheck=$(".head").attr('class').split(' ')[1]
+                if ($(".subhead." + subheadCheck + ":checked").length == $('.subhead.' + subheadCheck).length) {
+                    $(".head." + subheadCheck).prop('checked', true);
+                } else {
+                    $(".head." + subheadCheck).prop('checked', false);
+                }
+            });
+
+            $('.head').on( 'click',function () {
+                debugger;
+                //var headCheck = $(this).attr('class').split(' ')[1];
+                if ($(".head:checked").length == $('.head').length) {
+                    $(".all").prop('checked', true);
+                } else {
+                    $(".all").prop('checked', false);
+                }
+
+              });
+
+        });
+    </script>
+</head>
+@{
+    ViewBag.Title = "Permission";
+}
+<body>
+    <h2>Permission</h2>
+    @*<table>
+    <tr>
+        <th>PermissionId</th>
+        <th>Name</th>
+        <th>Parent_PermissionId</th>
+    </tr>*@
+
+    @foreach (var item in Model)
+    { @*<tr>
+    
+    <td>@item.PermissionId</td>
+    <td>@item.Name</td>
+    <td>@item.Parent_PermissionId</td>
+      </tr>*@
+        if (item.Parent_PermissionId == null)
+        {
+        <input type="checkbox" value="@item.Name" class="all" />@item.Name<br />
+            foreach (var m in Model)
+            {
+                if (m.Parent_PermissionId == 1)
+                {
+       
+        <input type="checkbox" value="@m.Name" class="head @m.Name" style="margin-left:20px" />@m.Name<br />
+    
+                    foreach (var i in Model)
+                    {
+                        if (i.Parent_PermissionId == m.PermissionId)
+                        {
+            
+               
+        <input type="checkbox" value="@i.Name" name="check" style="margin-left:40px" class="subhead @m.Name"/>@i.Name<br />
+                
+                        }
+                    }
+
+
+                }
+            }
+
+
+        }
+
+    }
+    <br />
+    <input type="submit" value="Submit" onclick=""@("location.href='" + Url.Action("SignUp", "Home") + "'")""/>
+
+    @*</table>*@
+</body>
+</html>

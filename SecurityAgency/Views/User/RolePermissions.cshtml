@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "RolePermissions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using SecurityAgency.Common.ViewModels
+@model IEnumerable<SecurityAgency.Common.ViewModels.PermissionViewModel>
+<script src="~/Scripts/AppJs/User.js"></script>
+
+<link href="~/Content/DataTable/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
+@using (Html.BeginForm())
+{
+<div class="contentpanel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" style="background:#19AFC6;">
+                <div class="col-md-6"><h5 class="adminhead">Role Permissions</h5></div>
+                <div class="col-md-6 text-right">
+                </div>
+            </div>
+            <div class="panel-body table-responsive">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            Roles
+                        </td>
+                        <td>
+                            @Html.TextBox("Role", (string)ViewBag.RoleDetail.Role1)
+                            @Html.Hidden("RoleId", (int)ViewBag.RoleDetail.RoleId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" cellpadding="5" cellspacing="5">
+                                <tr>
+                                    <td>
+                                        Module Name
+                                    </td>
+                                    <td colspan="5" align="center">
+                                        Permissions
+                                    </td>
+                                </tr>
+                                @foreach (var item in Model.GroupBy(i => i.ModuleId).Select(i => i.First()).ToList())
+                                {
+                                    <tr>
+                                        <td width="20%">
+                                            <b>
+                                                @Html.Label(item.ModuleName, new { @style = "font-weight:bolder" })
+                                            </b>
+                                        </td>
+                                        <td>
+                                        <td>
+                                            <table width="100%" cellpadding="10" cellspacing="10">
+                                                <tr>
+                                                    @foreach (var permissionItem in Model.Where(i => i.ModuleId == item.ModuleId).GroupBy(i => i.PermissionId).Select(i => i.First()).ToList())
+                                                    {
+                                                        <td width="25%">
+                                                            <input class="checkboxPermission" type="checkbox" id="chk_@permissionItem.PermissionId" name="chk_@permissionItem.PermissionId" /> @permissionItem.Name
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div>
+                <button type="submit" onclick="return validateRole()" class="btn btn-success pull-right">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div class="widget-body">
+</div>
+<script>
+    $(document).ready(function () {
+        if($('#RoleId').val()!='')
+        {
+            GetPermissionForRoles();
+        }
+    });
+</script>

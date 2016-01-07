@@ -1,0 +1,71 @@
+﻿@model SecurityAgency.Common.ViewModels.CustomerDetails
+@{
+    ViewBag.Title = "AddCustomer";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link href="~/Content/demo.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <div class="clr"></div>
+        <div class="form">
+            <h2 align="center" style="font-size: xx-large">Add Customer</h2>
+            <br />
+            
+
+            @using (Html.BeginForm("AddCustomer", "Admin",FormMethod.Post))
+            {
+                <form id="contactform">
+                    <p class="contact">
+                        <label for="name">Name</label>
+                    </p>
+                    
+                    @Html.TextBoxFor(model => model.Name, new { @placeholder = "Name" })
+                   <br /> @Html.ValidationMessageFor(model => model.Name)
+                    <p class="contact">
+                        <label for="email">Email</label>
+                    </p>
+                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "example@domain.com"})
+                   <br /> @Html.ValidationMessageFor(model => model.Email)
+                    @*<input id="email" name="email" placeholder="example@domain.com" required="" type="email">*@
+
+                  <p class="contact">
+                        <label for="address">Address</label>
+                    </p>
+                    @Html.TextAreaFor(model => model.Address, new { @placeholder = "house no.,area,city"})
+                     <p class="contact">
+                        <label for="Zip">Zip</label>
+                    </p>
+                     @Html.TextBoxFor(model => model.Zip, new { @placeholder = "Zip"})
+                   <br /> @Html.ValidationMessageFor(model => model.Zip)
+                   
+                   
+                  
+                    <br>
+
+                    <p class="contact">
+                        <label for="phone">Mobile phone</label>
+                    </p>
+                      @Html.TextBoxFor(model => model.ContactNo, new { @placeholder = "Contact No" })
+                   <br /> @Html.ValidationMessageFor(model => model.ContactNo)
+                    <br />
+                    <br>
+                    <input class="buttom" name="submit" id="submit" tabindex="5" value="Add Customer!" type="submit" onclick="@("location.href='" + Url.Action("AddCustomer", "Admin") + "'")" />
+                     
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>

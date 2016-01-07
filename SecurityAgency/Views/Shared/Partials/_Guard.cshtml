@@ -1,0 +1,80 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model GuardViewModel
+<script src="~/Scripts/AppJs/GuardValidation.js"></script>
+<div class="widget-body">
+    <form id="Guard-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="GuardId" id="guardId" />
+        <fieldset> 
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Name
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Name, new { @class="form-control", @placeholder = "Gaurd Name" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    SSN
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.SSN, new { @class = "form-control", @placeholder = "SSN (9 digit numeric number)", @onchange = "validateSSN(" + Model.GuardId + ");" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Address
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Address (e.g. House no., Area, City" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Contact No.
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.ContactNo, new {@class = "form-control", @placeholder = "Contact Number" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Zip
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip (6 digits)" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Hourly Rate
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control", @placeholder = "Hourly Rate" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Comments
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", @placeholder = "Comments" })
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <button id="buttonSave" onclick="CreateUpdateGuard(@Model.GuardId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if(@Model.GuardId==0)
+        {
+            $('#HourlyRate').val('');
+        }
+    });
+</script>

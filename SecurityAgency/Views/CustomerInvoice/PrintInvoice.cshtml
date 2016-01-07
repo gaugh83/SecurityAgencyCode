@@ -1,0 +1,193 @@
+﻿@model SecurityAgency.Common.ViewModels.CustomerInvoiceViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/js/jquery-1.11.1.min.js"></script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintInvoice</title>
+</head>
+<body>
+    <div>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr style="border-bottom:2px solid black">
+                            <td width="30%">
+                                <img src="~/Images/Logo_Nor_Cal.png">
+                            </td>
+                            <td colspan="2">
+                                <h4 style="margin:0px">
+                                    B and P Security Inc. DBA Nor-Cal Security
+                                </h4>
+                                <small>
+                                    2308 Evergreen Ave West Sacramento, Ca 95691<br />
+                                    (916) 416-1251   Fax (916) 285-9174
+                                </small>
+                            </td>                            
+                            <td valign="top" width="20%" align="right">
+                                <input type="button" id="PrintButton" value="Print" onclick="PrintThisPage();" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" width="50%">
+                                <fieldset>
+                                    <legend>
+                                        Customer
+                                    </legend>
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td width="20%">
+                                                Name
+                                            </td>
+                                            <td colspan="3" style="border-bottom:thin dotted">
+                                                @Model.Name
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Address
+                                            </td>
+                                            <td colspan="3" style="border-bottom:thin dotted">
+                                                @Model.Address
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Zip
+                                            </td>
+                                            <td colspan="3" style="border-bottom:thin dotted">
+                                                @Model.Zip
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Phone
+                                            </td>
+                                            <td colspan="3" style="border-bottom:thin dotted">
+                                                @Model.ContactNo
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </td>
+                            <td colspan="2">
+                                <fieldset>
+                                    <legend>
+                                        Invoice Details
+                                    </legend>
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                Invoice No
+                                            </td>
+                                            <td style="border-bottom:thin dotted">
+                                                @Model.InvoiceNo
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%">
+                                                Invoice Date
+                                            </td>
+                                            <td style="border-bottom:thin dotted">
+                                                @Model.InvoiceDate.ToShortDateString()
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Invoice period
+                                            </td>
+                                            <td style="border-bottom:thin dotted">
+                                                @{                                                    
+                                                    @Convert.ToDateTime(Model.BeginDate).ToShortDateString()
+                                                    @Html.Raw(" to ")
+                                                    @Convert.ToDateTime(Model.EndDate).ToShortDateString()
+                                                }
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Rep
+                                            </td>
+                                            <td style="border-bottom:thin dotted"></td>
+                                        </tr>
+                                        
+                                    </table>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <table width="99%" cellpadding="0" cellspacing="0" border="1" style="border:thin solid;margin-top:5px;margin-left:3px">
+                                    <tr>
+                                        <td width="25%" align="center">
+                                            <b>Hours</b>
+                                        </td>
+                                        <td align="center">
+                                            <b>Description</b>
+                                        </td>
+                                        <td align="center">
+                                            <b>Unit Price</b>
+                                        </td>
+                                        <td align="center">
+                                            <b>Total</b>
+                                        </td>
+                                    </tr>                                                                        
+                                    <tr>
+                                        <td align="center">@Model.TotalHours</td>
+                                        <td align="center">@Model.Description</td>
+                                        <td align="center">@Model.HourlyRate</td>
+                                        <td align="center">@Model.Amount
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td align="center">
+                                            <b>Total</b>
+                                        </td>
+                                        <td align="center"> 
+                                            @Model.Amount                                      
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td colspan="4" valign="bottom">
+                                <table width="100%" height="70px" border="1" style="border:thin solid;margin-top:5px;margin-left:3px">
+                                    <tr>
+                                        <td align="left" valign="top"><small>Office Use Only</small></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    function PrintThisPage()
+    {
+        $('#PrintButton').hide();
+        window.print();
+        $('#PrintButton').show();
+    }
+</script>

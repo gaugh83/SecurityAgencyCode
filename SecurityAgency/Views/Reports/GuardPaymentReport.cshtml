@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Guard Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using SecurityAgency.Common.ViewModels
+@using SecurityAgency.Common.Utility
+@model GuardViewModel
+<link href="~/Content/DataTable/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/AppJs/GuardPayment.js"></script>
+<div class="contentpanel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" style="background:#19AFC6;">
+                <div class="col-md-12"><h5 class="adminhead">Guard Report</h5></div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-2">
+                    Select Guard
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(d => d.GuardId, new SelectList(Model.Guardlist, "value", "text"), "All Gaurds", new { @class = "form-control", @style = "width:95%" })
+                </div>               
+                <div class="col-lg-offset-2 col-md-3">
+                    <input type="button" value="View Report" class="btn btn-primary" onclick="GenerateGuardPaymentReport()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

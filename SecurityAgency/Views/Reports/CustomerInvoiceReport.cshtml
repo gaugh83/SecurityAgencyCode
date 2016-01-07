@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Customer Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using SecurityAgency.Common.ViewModels
+@using SecurityAgency.Common.Utility
+@model CustomerInvoiceViewModel
+
+<link href="~/Content/DataTable/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/AppJs/CustomerInvoice.js"></script>
+<div class="contentpanel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" style="background:#19AFC6;">
+                <div class="col-md-12"><h5 class="adminhead">Customer Report</h5></div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-2">
+                    Customer Name
+                </div>
+                <div class="col-md-2" style="margin-left:6%">
+                    @Html.DropDownListFor(d => d.CustomerId, new SelectList(Model.CustomerList, "value", "text"), "All Customers", new { @class = "form-control", @style="width:95%" })
+                </div>
+                @*<div class="col-md-2">
+                    Invoice Type
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownList("InvoiceType", new List<SelectListItem>
+                                     {
+                                        new SelectListItem{ Text="All", Value = SecurityAgency.Common.Utility.EnumUtility.InvoiceType.All.ToString() },
+                                        new SelectListItem{ Text="Paid", Value = SecurityAgency.Common.Utility.EnumUtility.InvoiceType.Paid.ToString()  },
+                                        new SelectListItem{ Text="Unpaid", Value = SecurityAgency.Common.Utility.EnumUtility.InvoiceType.Unpaid.ToString()  }
+                                     }, new { @class = "form-control", style="margin-left:-33%;width:60%;" })
+                </div>*@
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-2">
+                    Invoice Date Between
+                </div>
+                <div class="col-md-3">
+                    Start Date: <input type="date" id="StartDate" />
+                </div>
+                <div class="col-md-3">
+                    End Date: &nbsp;&nbsp;&nbsp;<input type="date" id="EndDate" />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" value="View Report" class="btn btn-primary" onclick="GenerateCustomerInvoiceReport()" />
+                </div>
+            </div>           
+        </div>
+    </div>
+</div>
+

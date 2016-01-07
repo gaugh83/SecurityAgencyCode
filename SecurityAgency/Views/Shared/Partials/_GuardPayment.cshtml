@@ -1,0 +1,102 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model GuardPaymentViewModel
+<script src="~/Scripts/AppJs/GuardPaymentValidation.js"></script>
+<style type="text/css">
+ #Dated {
+        width: 100%;
+    }
+ #StartDate {
+        width: 145px;
+    }
+ #EndDate {
+        width: 145px;
+    }
+</style>
+<div class="widget-body">
+    <form id="GuardPayment-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="guardPaymentId" id="guardPaymentId" />
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Payment Date
+                </div>
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.PaymentDate, new { @class = "form-control", @placeholder = "Date", type = "date" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Guard
+                </div>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(d => d.GuardId, new SelectList(Model.GuardList, "value", "text"), "Select Guard", new { @class = "form-control", onchange = "GetPaymentAmount();" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Start Date
+                </div>
+                <div class="col-sm-3">
+                    @Html.EditorFor(model => model.StartDate, new { @class = "form-control", @placeholder = "Date", type = "date" })
+                </div>
+                <div class="col-sm-2" style="padding-left:4%">
+                    End Date
+                </div>
+                <div class="col-sm-3">
+                    @Html.EditorFor(model => model.EndDate, new { @class = "form-control", @placeholder = "Date", type = "date" })
+                </div>
+            </div>           
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Total Hours
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.TotalHours, new { @class = "form-control", @placeholder = "Total Hours", onchange = "CalculateAmount();" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Hourly Rate
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control", @placeholder = "Hourly Rate", onchange = "CalculateAmount();" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Amount
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", @placeholder = "Amount" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Comments
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", @placeholder = "Comments" })
+                </div>
+            </div>            
+        </fieldset>
+    </form>
+    <div>
+        <button id="buttonSave" onclick="CreateUpdateGuardPayment(@Model.GuardPaymentId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if(@Model.GuardPaymentId==0)
+        {
+            document.querySelector('#PaymentDate').value = new Date(new Date().setDate(new Date().getDate())).toISOString().substring(0, 10);
+            document.querySelector('#StartDate').value = new Date(new Date().setDate(new Date().getDate()-14)).toISOString().substring(0, 10);
+            document.querySelector('#EndDate').value = new Date(new Date().setDate(new Date().getDate())).toISOString().substring(0, 10);
+
+            $('#TotalHours').val('');
+            $('#Amount').val('');
+            $('#HourlyRate').val('');
+        }
+    });
+</script>

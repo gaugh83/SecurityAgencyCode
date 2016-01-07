@@ -1,0 +1,9 @@
+1) Remove left navigation (Done)
+2) Upload new logo (Done)
+3) Add new navigation like slide 5. Instead of “Wiki” call it “Solutions” (Done)
+4) New page called models.html(Done)
+5) New Index Page Design with slider(Done)
+
+
+
+

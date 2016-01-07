@@ -1,0 +1,89 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model UserViewModel
+
+<script src="~/Scripts/AppJs/UserValidation.js"></script>
+<div class="widget-body">
+    <form id="User-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="UserId" id="userId" />
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    User Name
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "User Name" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Password
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Email
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email (e.g. example@domain.com)" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Address
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Address (e.g. House no.,Area, City" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Contact No.
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Role
+                </div>
+                <div class="col-sm-9">
+                   @Html.DropDownListFor(d => d.RoleId, new SelectList(Model.Rolelist, "value", "text"), "Select Role", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Zip
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip (6 Digits)" })
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+    <div>
+        <button onclick="CreateUpdateUser(@Model.UserId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        if (@Model.UserId == Role.Admin) {
+            $('#UserName').prop("readonly", true);
+            $('#RoleId').attr('disabled',true);
+        }
+        else
+        {
+            $('#UserName').prop("readonly", false);
+            $('#RoleId').attr('disabled',false);
+        }
+    });
+</script>

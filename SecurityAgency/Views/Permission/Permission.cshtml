@@ -1,0 +1,52 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model PermissionViewModel
+
+<div class="widget-body">
+    <form>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.PermissionId)
+     
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @Html.DropDownListFor(d => d.RoleId, new SelectList(Model.Rolelist, "value", "text"), "Select Role", new { @class = "form-control" })
+                </div>
+                @*<div class="form-group">
+                    <div class="col-sm-12">
+                        @Html.DropDownListFor(d => d.RoleId, new SelectList(Model.PermissionList, "value", "text"), "Select Permission", new { @class = "form-control" })
+                    </div>*@
+                    <div class="form-group">
+
+                    </div>
+
+
+                    <table>
+
+                        
+                        @foreach (var items in Model.Modulelist)
+                        {
+                            <tr>
+                               <td> @items.Text</td>
+                                @foreach (var per in Model.PermissionList)
+                                {
+                                    if (items.Text == per.ModuleName)
+                                    {
+                                    <td><input type="checkbox" />&nbsp;@per.Name&nbsp;&nbsp;&nbsp; </td> 
+                                    }
+                               }
+                             
+                              
+                            </tr>
+
+                        }
+                       
+                    </table>
+
+                    <div>
+                        <button onclick="" class="btn btn-success pull-right">Save</button>
+                    </div>
+                </div>
+        </fieldset>
+
+    </form>
+</div>

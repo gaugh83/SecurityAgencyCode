@@ -1,0 +1,91 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model CustomerViewModel
+
+<script src="~/Scripts/AppJs/customerValidation.js"></script>
+<div class="widget-body">
+    <form id="Customer-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="CustomerId" id="customerId" />
+        <input type="hidden" name="HourlyRateId" id="HourlyRateId" />
+        <fieldset>
+            @Html.ValidationSummary()
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Customer Name
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Customer Name" })
+                    @Html.ValidationMessageFor(model => model.Name)
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Email
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email (e.g.:example@domain.com)", @onchange = "validateEmailAddress("+Model.CustomerId+");" })
+                    @Html.ValidationMessageFor(model => model.Email)
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Address
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Address (e.g.: House no., Area, City)" })
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Contact No.
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control", @placeholder = "Contact Number" })
+                    @Html.ValidationMessageFor(model => model.ContactNo)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Zip
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip (6 Digits)" })
+                    @Html.ValidationMessageFor(model => model.Zip)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Hourly Rate
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control", @placeholder = "Hourly Rate" })
+                    @Html.ValidationMessageFor(model => model.HourlyRate)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3" style="padding-left:4%">
+                    Comments
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", @placeholder = "Comments" })
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <button onclick="Common.closeGenericModal()" type="button" class="btn btn-danger">Cancel</button>
+        <button id="buttonSave" onclick="CreateUpdateCustomer(@Model.CustomerId)" class="btn btn-success pull-right">Save</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if(@Model.CustomerId==0)
+        {
+            $('#HourlyRate').val('');
+        }    
+    });
+</script>

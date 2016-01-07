@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D01C9E79-920E-4028-A3F9-94F5815C1AF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SecurityAgency.Repository</RootNamespace>
+    <AssemblyName>SecurityAgency.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Entity.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbRepository.cs" />
+    <Compile Include="DbServices\Customer.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\CustomerInvoice.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\CustomerPayment.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\DailyLog.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\Error_Log.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getAllCustomerInvoice_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getAllCustomers_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getAllGuards_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getCustomerInvoiceAmount_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getGuardHourlyRate_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getGuardPayment_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\getRolePermissions_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\Guard.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\GuardPayment.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\Module.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\Permission.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\Role.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\RolePermission.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\SecurityAgency.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecurityAgency.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\SecurityAgency.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\SecurityAgency.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecurityAgency.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\sp_helpdiagrams_Result.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbServices\User.cs">
+      <DependentUpon>SecurityAgency.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDbRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DbServices\SecurityAgency.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SecurityAgency.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DbServices\SecurityAgency.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecurityAgency.edmx</DependentUpon>
+      <LastGenOutput>SecurityAgency.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DbServices\SecurityAgency.edmx.diagram">
+      <DependentUpon>SecurityAgency.edmx</DependentUpon>
+    </None>
+    <None Include="DbServices\SecurityAgency.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecurityAgency.edmx</DependentUpon>
+      <LastGenOutput>SecurityAgency.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

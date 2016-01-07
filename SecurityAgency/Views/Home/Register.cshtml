@@ -1,0 +1,89 @@
+﻿@model SecurityAgency.Models.User
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link href="~/Content/demo.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <div class="clr"></div>
+        <div class="form">
+            <h2 align="center" style="font-size: xx-large">Registration Form</h2>
+            <br />
+            
+  @*       @ViewBag.Message*@
+            @using (Html.BeginForm("SignUp", "Home"))
+            {
+                <form id="contactform">
+                    <p class="contact">
+                        <label for="name">Name</label>
+                    </p>
+                    @Html.TextBoxFor(model => model.Username, new { @placeholder = "Username" })
+                   <br /> @Html.ValidationMessageFor(model => model.Username)
+                    <p class="contact">
+                        <label for="email">Email</label>
+                    </p>
+                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "example@domain.com"})
+                   <br /> @Html.ValidationMessageFor(model => model.Email)
+                    @*<input id="email" name="email" placeholder="example@domain.com" required="" type="email">*@
+
+
+
+                    <p class="contact">
+                        <label for="password">Create a password</label>
+                    </p>
+                    @Html.PasswordFor(model => model.Password)
+                   <br /> @Html.ValidationMessageFor(model => model.Password)
+                    @*<input type="password" id="password" name="password" required="">*@
+
+
+                    <p class="contact">
+                        <label for="address">Address</label>
+                    </p>
+                    @Html.TextBoxFor(model => model.Address, new { @placeholder = "house no.,area,city"})
+                    
+                    @*<input id="address" name="address" placeholder="house no.,area,city" required="">*@
+
+                    <fieldset>
+                        <label>Role</label>
+                        <label class="month">
+
+                            @Html.DropDownListFor(d => d.RoleId, new SelectList(Model.Rolelist, "value", "text"),"Select Role")
+                            <br /> @if (Model.RoleId == 0)
+                                   { 
+                                       <span>Please select a role</span>
+                                   }
+
+                        </label>
+
+                    </fieldset>
+                    <br />
+                  
+                    <br>
+
+                    <p class="contact">
+                        <label for="phone">Mobile phone</label>
+                    </p>
+                      @Html.TextBoxFor(model => model.Contact, new { @placeholder = "Contact" })
+                   <br /> @Html.ValidationMessageFor(model => model.Contact)
+                    <br />
+                    <br>
+                    <input class="buttom" name="submit" id="submit" tabindex="5" value="Sign me up!" type="submit" onclick="@("location.href='" + Url.Action("SignUp", "Home") + "'")" />
+                     
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+﻿@*
+    This partial controls the left menu of the AdminLTE dashboard and is called automatically by _AdminLteLayout
+       This is where you can add, modify, or remove navigation options in your app
+       TODO: This preserves the links as-is for the demo, which lead to broken pages!
+       It's up to you to make sure these links either get deleted or lead somewhere REAL!
+*@
+
+
+@{
+    Layout = null;
+}
+@using SecurityAgency.Common;
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="/Content/AdminLTE/img/m3.png" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+                <p style="margin-top:10px">
+                    @if (Session["UserDetail"] != null)
+                    {
+                        @((Session["UserDetail"] as SecurityAgency.Common.Models.ActiveUser).UserName)
+                    }
+                </p>
+            </div>
+        </div>
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewDailyLog))
+            {
+                <li><a id="iddailylog" href="@Url.Action("DailyLog", "DailyLog")"><i class=" fa fa-book"></i> Daily Log Details</a></li>
+            }
+            <li class="treeview menuCustomer">
+                <a href="#">
+                    <i class="fa fa-users"></i>
+                    <span>Customers</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewCustomer))
+                    {
+                        <li><a id="idCustomer" href="@Url.Action("Customer", "Customer")"><i class="fa fa-circle-o"></i> Customer Details</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewInvoice))
+                    {
+                        <li><a id="idCustomerInvoice" href="@Url.Action("CustomerInvoice", "CustomerInvoice")"><i class="fa fa-circle-o"></i> Customer Invoice</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewCustomerPayment))
+                    {
+                        <li><a id="idCustomerPayment" href="@Url.Action("CustomerPayment", "CustomerPayment")"><i class="fa fa-circle-o"></i> Customer Payments</a></li>
+                    }
+                </ul>
+            </li>
+            <li class="treeview menuGuard">
+                <a href="#">
+                    <i class="fa fa-child"></i>
+                    <span>Gaurd</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewGuard))
+                    {
+                        <li><a id="idguard" href="@Url.Action("Guard", "Guard")"><i class="fa fa-circle-o"></i> Gaurd Details</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewGuardPayment))
+                    {
+                        <li><a id="idguardpayment" href="@Url.Action("GuardPayment", "GuardPayment")"><i class="fa fa-circle-o"></i> Guard Payments</a></li>
+                    }
+                </ul>
+            </li>
+            <li class="treeview menuReport">
+                <a href="#">
+                    <i class="fa fa-th"></i>
+                    <span>Reports</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewCustomerReports))
+                    {
+                        <li><a id="idcustomerreport" href="@Url.Action("CustomerReport", "Reports")"><i class="fa fa-circle-o"></i> Customer Reports</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewGuardReports))
+                    {
+                        <li><a id="idguardreport" href="@Url.Action("GuardReport", "Reports")"><i class="fa fa-circle-o"></i> Guard Reports</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewCustomerInvoiceReports))
+                    {
+                        <li><a id="idcustomerinvoicereport" href="@Url.Action("CustomerInvoiceReport", "Reports")"><i class="fa fa-circle-o"></i> Customer Invoice Reports</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewGuardPaymentReport))
+                    {
+                        <li><a id="idguardpaymentreport" href="@Url.Action("GuardPaymentReport", "Reports")"><i class="fa fa-circle-o"></i> Guard Payment Report</a></li>
+                    }
+                </ul>
+            </li>
+
+            <li class="treeview menuUserMgt">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span>User Management</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewUser))
+                    {
+                        <li><a id="iduser" href="@Url.Action("User", "Admin")"><i class=" fa fa-circle-o"></i> User Details</a></li>
+                    }
+                    @if (CommonClass.GetPermission(SecurityAgency.Common.Utility.EnumUtility.Permissions.ViewRole))
+                    {
+                        <li><a id="idroles" href="@Url.Action("Roles", "User")"><i class=" fa fa-circle-o"></i> Manage Roles</a></li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+<script type="text/javascript">
+    if (window.location.href.toLowerCase().search('report') > 0) {
+        $('.menuReport').addClass('active');
+        if (window.location.href.toLowerCase().match(/customerreport$/) != null) {
+            $('#idcustomerreport').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/guardreport/) != null) {
+            $('#idguardreport').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/customerinvoicereport/) != null) {
+            $('#idcustomerinvoicereport').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/guardpaymentreport/) != null) {
+            $('#idguardpaymentreport').css('color', 'white');
+        }
+    }
+    else if (window.location.href.toLowerCase().search('customer') > 0) {
+        $('.menuCustomer').addClass('active');
+        //highlight submenu
+        if (window.location.href.toLowerCase().match(/customer$/) != null) {
+            $('#idCustomer').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/customerinvoice$/) != null) {
+            $('#idCustomerInvoice').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/customerpayment$/) != null) {
+            $('#idCustomerPayment').css('color', 'white');
+        }
+    }
+    else if (window.location.href.toLowerCase().search('guard') > 0) {
+        $('.menuGuard').addClass('active');
+        if (window.location.href.toLowerCase().match(/guard$/) != null) {
+            $('#idguard').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/guardpayment$/) != null) {
+            $('#idguardpayment').css('color', 'white');
+        }
+    }
+    else if (window.location.href.toLowerCase().search('user') > 0) {
+        $('.menuUserMgt').addClass('active');
+        if (window.location.href.toLowerCase().match(/user$/) != null) {
+            $('#iduser').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/roles$/) != null) {
+            $('#idroles').css('color', 'white');
+        }
+        else if (window.location.href.toLowerCase().match(/rolepermissions/) != null) {
+            $('#idroles').css('color', 'white');
+        }
+    }
+    else
+    {
+        $('#iddailylog').css('color', 'white');
+    }
+</script>

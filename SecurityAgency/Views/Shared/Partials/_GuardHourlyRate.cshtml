@@ -1,0 +1,52 @@
+﻿@using SecurityAgency.Common.ViewModels
+@model GuardRateViewModel
+
+<script src="~/Scripts/AppJs/GuardRateValidation.js"></script>
+<style type="text/css">
+    #EffectiveFrom {
+        width: 100%;
+    }
+
+    #EffectiveTo {
+        width: 100%;
+    }
+</style>
+
+<div class="widget-body">
+    <form id="GuardHourlyRate-form" class="form-horizontal form-label-left ">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="HourlyRateId" id="HourlyRateId" />
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-12">
+                   @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control", @placeholder = " Rate (e.g.=200)" })
+                    @Html.ValidationMessageFor(model=>model.HourlyRate)
+                    
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @Html.DropDownListFor(d => d.GuardId, new SelectList(Model.GuardList, "value", "text"), "--Select Guard--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.EffectiveFrom, new { @class = "form-control", @placeholder = "Rates Effective From", type = "date" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.EffectiveTo, new { @class = "form-control", @placeholder = "Rates Effective To", type = "date"})
+                </div>
+                </div>
+
+
+</fieldset>
+    </form>
+    <div>
+        <button onclick="CreateUpdateGuardRate(@Model.HourlyRateId)" class="btn btn-success pull-right">Save</button>
+        <button onclick="Common.closeGenericModal();" type="button" class="btn btn-danger">Cancel</button>
+    </div>
+</div>
+
